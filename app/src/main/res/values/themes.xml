@@ -1,0 +1,4 @@
+<resources>
+    <!-- Tema base de plataforma; el theming real de la UI lo maneja Jetpack Compose (ver ui/theme). -->
+    <style name="Theme.GestorCasos" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>
