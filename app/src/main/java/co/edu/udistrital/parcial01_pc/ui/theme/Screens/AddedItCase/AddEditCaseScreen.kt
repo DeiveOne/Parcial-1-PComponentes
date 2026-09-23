@@ -2,12 +2,13 @@ package co.edu.udistrital.parcial01_pc.ui.theme.Screens.AddedItCase
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,8 +26,8 @@ fun AddEditCaseScreen(
             TopAppBar(
                 title = { Text("Registrar Nuevo Caso") },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Volver")
+                    IconButton(onClick = onNavigateBack) { Icon (
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,contentDescription = "Regresar")
                     }
                 }
             )

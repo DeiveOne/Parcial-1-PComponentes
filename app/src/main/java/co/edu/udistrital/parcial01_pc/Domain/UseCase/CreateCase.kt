@@ -1,10 +1,10 @@
 package co.edu.udistrital.parcial01_pc.Domain.UseCase
 
 import co.edu.udistrital.parcial01_pc.Domain.Model.Case
-import co.edu.udistrital.parcial01_pc.Data.Repository.CaseRepository
+import co.edu.udistrital.parcial01_pc.Data.Repository.CaseRepositoryImpl
 
 class CreateCase(
-    private val repository: CaseRepository
+    private val repository: CaseRepositoryImpl
 ) {
     suspend operator fun invoke(case: Case) {
 
