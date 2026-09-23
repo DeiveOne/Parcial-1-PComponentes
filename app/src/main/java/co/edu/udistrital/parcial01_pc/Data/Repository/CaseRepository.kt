@@ -2,7 +2,6 @@ package co.edu.udistrital.parcial01_pc.Data.Repository
 
 import co.edu.udistrital.parcial01_pc.Domain.Model.Case
 import co.edu.udistrital.parcial01_pc.Domain.Model.Interview
-import co.edu.udistrital.parcial01_pc.Domain.RepositoryInterface.InterfaceRepository
 import kotlinx.coroutines.flow.Flow
 
 interface CaseRepository {
