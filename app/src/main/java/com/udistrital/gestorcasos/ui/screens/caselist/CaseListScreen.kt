@@ -23,9 +23,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.udistrital.gestorcasos.R
 import com.udistrital.gestorcasos.data.model.Case
 import com.udistrital.gestorcasos.ui.AppViewModelProvider
 import com.udistrital.gestorcasos.ui.components.EmptyState
@@ -35,7 +37,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 /**
- * Listado de casos: buscador por título + estado visible en cada tarjeta.
+ * Case list: search by title + visible status on each card.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,10 +52,10 @@ fun CaseListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Listado de casos") },
+                title = { Text(stringResource(R.string.case_list)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Volver")
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 }
             )
@@ -71,9 +73,9 @@ fun CaseListScreen(
             if (cases.isEmpty()) {
                 EmptyState(
                     message = if (query.isBlank()) {
-                        "Todavía no hay casos registrados."
+                        stringResource(R.string.no_cases_registered)
                     } else {
-                        "No se encontraron casos para \"$query\"."
+                        stringResource(R.string.no_cases_found, query)
                     }
                 )
             } else {

@@ -32,9 +32,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.udistrital.gestorcasos.R
 import com.udistrital.gestorcasos.data.model.CaseStatus
 import com.udistrital.gestorcasos.data.model.Interview
 import com.udistrital.gestorcasos.ui.AppViewModelProvider
@@ -45,8 +47,8 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 /**
- * Detalle de un caso: datos generales, conclusión (si está cerrado), lista de
- * entrevistas con sus hallazgos, y las acciones de editar, cerrar y eliminar.
+ * Case details: general data, conclusion (if closed), list of
+ * interviews with main findings, and actions to edit, close, and delete.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,30 +73,30 @@ fun CaseDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(caso?.title ?: "Detalle de caso") },
+                title = { Text(caso?.title ?: stringResource(R.string.case_detail)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Volver")
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
                 actions = {
                     IconButton(onClick = { onEditar(caseId) }) {
-                        Icon(Icons.Default.Edit, contentDescription = "Editar")
+                        Icon(Icons.Default.Edit, contentDescription = stringResource(R.string.edit))
                     }
                     IconButton(onClick = { showDeleteDialog = true }) {
-                        Icon(Icons.Default.Delete, contentDescription = "Eliminar")
+                        Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete))
                     }
                 }
             )
         },
         floatingActionButton = {
             FloatingActionButton(onClick = { showAddInterview = true }) {
-                Icon(Icons.Default.Add, contentDescription = "Agregar entrevista")
+                Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add_interview))
             }
         }
     ) { paddingValues ->
         if (caso == null) {
-            EmptyState(message = "Cargando caso...", modifier = Modifier.fillMaxSize().padding(paddingValues))
+            EmptyState(message = stringResource(R.string.loading_case), modifier = Modifier.fillMaxSize().padding(paddingValues))
         } else {
             Column(
                 modifier = Modifier
@@ -114,17 +116,17 @@ fun CaseDetailScreen(
 
                 if (caso.status != CaseStatus.CERRADO) {
                     OutlinedButton(onClick = { showCloseDialog = true }, modifier = Modifier.fillMaxWidth()) {
-                        Text("Cerrar caso")
+                        Text(stringResource(R.string.close_case))
                     }
                 } else if (!caso.conclusion.isNullOrBlank()) {
-                    Text("Conclusión", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.conclusion), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
                     Text(caso.conclusion)
                 }
 
-                Text("Entrevistas", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.interviews), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
 
                 if (uiState.interviews.isEmpty()) {
-                    EmptyState(message = "Todavía no hay entrevistas registradas para este caso.")
+                    EmptyState(message = stringResource(R.string.no_interviews_yet))
                 } else {
                     LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         items(uiState.interviews) { entrevista ->
@@ -138,8 +140,8 @@ fun CaseDetailScreen(
 
     if (showDeleteDialog) {
         ConfirmDialog(
-            title = "Eliminar caso",
-            message = "Esta acción elimina el caso y todas sus entrevistas. ¿Deseas continuar?",
+            title = stringResource(R.string.delete_case_title),
+            message = stringResource(R.string.delete_case_message),
             onConfirm = {
                 showDeleteDialog = false
                 viewModel.deleteCase()

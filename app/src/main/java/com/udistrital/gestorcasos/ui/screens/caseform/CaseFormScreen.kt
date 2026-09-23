@@ -27,15 +27,17 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.udistrital.gestorcasos.R
 import com.udistrital.gestorcasos.data.model.CaseStatus
 import com.udistrital.gestorcasos.ui.AppViewModelProvider
 import com.udistrital.gestorcasos.ui.components.DateField
 
 /**
- * Formulario de creación / edición de caso. El estado del caso se elige con
- * FilterChip (no un menú desplegable), y si se marca "Cerrado" se pide la conclusión.
+ * Case creation / editing form. The case status is selected using
+ * FilterChip, and if "Closed" is selected, the conclusion field is shown.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,10 +55,10 @@ fun CaseFormScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(if (uiState.isEditing) "Editar caso" else "Nuevo caso") },
+                title = { Text(if (uiState.isEditing) stringResource(R.string.edit_case) else stringResource(R.string.new_case)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Volver")
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 }
             )
@@ -73,13 +75,13 @@ fun CaseFormScreen(
             OutlinedTextField(
                 value = uiState.title,
                 onValueChange = viewModel::onTitleChange,
-                label = { Text("Título") },
+                label = { Text(stringResource(R.string.title)) },
                 isError = uiState.titleError,
                 modifier = Modifier.fillMaxWidth()
             )
             if (uiState.titleError) {
                 Text(
-                    text = "El título es obligatorio",
+                    text = stringResource(R.string.title_required),
                     color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.bodySmall
                 )
@@ -88,20 +90,20 @@ fun CaseFormScreen(
             OutlinedTextField(
                 value = uiState.description,
                 onValueChange = viewModel::onDescriptionChange,
-                label = { Text("Descripción") },
+                label = { Text(stringResource(R.string.description)) },
                 minLines = 3,
                 modifier = Modifier.fillMaxWidth()
             )
 
             DateField(
-                label = "Fecha del caso",
+                label = stringResource(R.string.case_date),
                 dateMillis = uiState.dateMillis,
                 onDateSelected = viewModel::onDateChange
             )
 
-            Text("Estado", style = MaterialTheme.typography.titleSmall)
+            Text(stringResource(R.string.status), style = MaterialTheme.typography.titleSmall)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                CaseStatus.values().forEach { status ->
+                CaseStatus.entries.forEach { status ->
                     FilterChip(
                         selected = uiState.status == status,
                         onClick = { viewModel.onStatusChange(status) },
@@ -114,7 +116,7 @@ fun CaseFormScreen(
                 OutlinedTextField(
                     value = uiState.conclusion,
                     onValueChange = viewModel::onConclusionChange,
-                    label = { Text("Conclusión") },
+                    label = { Text(stringResource(R.string.conclusion)) },
                     minLines = 3,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -123,7 +125,7 @@ fun CaseFormScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(onClick = viewModel::save, modifier = Modifier.fillMaxWidth()) {
-                Text("Guardar")
+                Text(stringResource(R.string.save))
             }
         }
     }

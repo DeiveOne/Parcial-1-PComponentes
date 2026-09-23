@@ -6,15 +6,15 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 
 /**
- * Diálogo genérico de confirmación (sí/no). Se usa para confirmar la eliminación
- * de un caso; puede reutilizarse para cualquier otra acción destructiva.
+ * Generic confirmation dialog (yes/no). Used to confirm the deletion
+ * of a case; can be reused for any other destructive action.
  */
 @Composable
 fun ConfirmDialog(
     title: String,
     message: String,
-    confirmText: String = "Confirmar",
-    dismissText: String = "Cancelar",
+    confirmText: String = "Confirm",
+    dismissText: String = "Cancel",
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {

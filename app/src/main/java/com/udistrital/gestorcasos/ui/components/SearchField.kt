@@ -12,14 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 /**
- * Campo de búsqueda reutilizable (usado en el listado de casos).
+ * Reusable search field (used in the case list).
  */
 @Composable
 fun SearchField(
     query: String,
     onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: String = "Buscar por título"
+    placeholder: String = "Search by title"
 ) {
     OutlinedTextField(
         value = query,
@@ -31,7 +31,7 @@ fun SearchField(
         trailingIcon = {
             if (query.isNotEmpty()) {
                 IconButton(onClick = { onQueryChange("") }) {
-                    Icon(Icons.Default.Clear, contentDescription = "Limpiar búsqueda")
+                    Icon(Icons.Default.Clear, contentDescription = "Clear search")
                 }
             }
         }

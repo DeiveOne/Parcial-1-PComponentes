@@ -1,11 +1,11 @@
 package com.udistrital.gestorcasos.data.model
 
 /**
- * Estados posibles de un caso durante su ciclo de vida.
- * Se usa para el filtrado del listado y para el resumen general de la pantalla Home.
+ * Possible statuses of a case during its lifecycle.
+ * Used for list filtering and for the general summary on the Home screen.
  */
 enum class CaseStatus(val label: String) {
-    ABIERTO("Abierto"),
-    EN_INVESTIGACION("En investigación"),
-    CERRADO("Cerrado")
+    ABIERTO("Open"),
+    EN_INVESTIGACION("Under investigation"),
+    CERRADO("Closed")
 }

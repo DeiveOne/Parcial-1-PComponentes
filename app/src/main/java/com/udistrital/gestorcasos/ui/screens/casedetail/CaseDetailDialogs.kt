@@ -13,20 +13,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.udistrital.gestorcasos.R
 import com.udistrital.gestorcasos.ui.components.DateField
 
-/** Pide la conclusión al cerrar un caso. */
+/** Asks for final conclusion when closing a case. */
 @Composable
 fun CloseCaseDialog(onConfirm: (String) -> Unit, onDismiss: () -> Unit) {
     var conclusion by remember { mutableStateOf("") }
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Cerrar caso") },
+        title = { Text(stringResource(R.string.close_case)) },
         text = {
             Column {
-                Text("Escribe la conclusión final del caso:")
+                Text(stringResource(R.string.close_case_prompt))
                 OutlinedTextField(
                     value = conclusion,
                     onValueChange = { conclusion = it },
@@ -35,12 +37,12 @@ fun CloseCaseDialog(onConfirm: (String) -> Unit, onDismiss: () -> Unit) {
                 )
             }
         },
-        confirmButton = { TextButton(onClick = { onConfirm(conclusion) }) { Text("Cerrar caso") } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancelar") } }
+        confirmButton = { TextButton(onClick = { onConfirm(conclusion) }) { Text(stringResource(R.string.close_case)) } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } }
     )
 }
 
-/** Registra una nueva entrevista: entrevistado, fecha y hallazgos principales. */
+/** Registers a new interview: interviewee, date, and main findings. */
 @Composable
 fun InterviewDialog(
     onConfirm: (name: String, dateMillis: Long, findings: String) -> Unit,
@@ -52,26 +54,26 @@ fun InterviewDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Nueva entrevista") },
+        title = { Text(stringResource(R.string.new_interview)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Entrevistado") },
+                    label = { Text(stringResource(R.string.interviewee)) },
                     modifier = Modifier.fillMaxWidth()
                 )
-                DateField(label = "Fecha de la entrevista", dateMillis = date, onDateSelected = { date = it })
+                DateField(label = stringResource(R.string.interview_date), dateMillis = date, onDateSelected = { date = it })
                 OutlinedTextField(
                     value = findings,
                     onValueChange = { findings = it },
-                    label = { Text("Hallazgos principales") },
+                    label = { Text(stringResource(R.string.main_findings)) },
                     minLines = 3,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
         },
-        confirmButton = { TextButton(onClick = { onConfirm(name, date, findings) }) { Text("Guardar") } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancelar") } }
+        confirmButton = { TextButton(onClick = { onConfirm(name, date, findings) }) { Text(stringResource(R.string.save)) } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } }
     )
 }

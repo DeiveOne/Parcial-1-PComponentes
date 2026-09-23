@@ -28,9 +28,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.udistrital.gestorcasos.R
 import com.udistrital.gestorcasos.data.model.Case
 import com.udistrital.gestorcasos.ui.AppViewModelProvider
 import com.udistrital.gestorcasos.ui.components.EmptyState
@@ -39,8 +41,8 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 /**
- * Pantalla de inicio: resumen general de casos (totales por estado) + casos recientes.
- * Desde aquí se navega a "Ver listado" y a "Crear caso" (pantallas de la siguiente entrega).
+ * Home screen: general case summary (totals by status) + recent cases.
+ * From here users navigate to "View list" and "Create case".
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,10 +55,10 @@ fun HomeScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Gestor de Entrevistas") }) },
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.app_name)) }) },
         floatingActionButton = {
             FloatingActionButton(onClick = onCrearCaso) {
-                Icon(Icons.Default.Add, contentDescription = "Crear caso")
+                Icon(Icons.Default.Add, contentDescription = stringResource(R.string.create_case))
             }
         }
     ) { paddingValues ->
@@ -69,7 +71,7 @@ fun HomeScreen(
         ) {
             item {
                 Text(
-                    text = "Resumen general",
+                    text = stringResource(R.string.general_summary),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
@@ -88,13 +90,13 @@ fun HomeScreen(
                 OutlinedButton(onClick = onVerListado, modifier = Modifier.fillMaxWidth()) {
                     Icon(Icons.Default.List, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Ver listado completo de casos")
+                    Text(stringResource(R.string.view_full_case_list))
                 }
             }
 
             item {
                 Text(
-                    text = "Casos recientes",
+                    text = stringResource(R.string.recent_cases),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -102,7 +104,7 @@ fun HomeScreen(
 
             if (uiState.recentCases.isEmpty()) {
                 item {
-                    EmptyState(message = "Todavía no hay casos registrados. Usa el botón + para crear el primero.")
+                    EmptyState(message = stringResource(R.string.no_cases_yet))
                 }
             } else {
                 items(uiState.recentCases) { caso ->
@@ -119,10 +121,10 @@ private fun ResumenCasos(total: Int, abiertos: Int, enInvestigacion: Int, cerrad
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        ResumenTarjeta(titulo = "Total", valor = total, modifier = Modifier.weight(1f))
-        ResumenTarjeta(titulo = "Abiertos", valor = abiertos, modifier = Modifier.weight(1f))
-        ResumenTarjeta(titulo = "En invest.", valor = enInvestigacion, modifier = Modifier.weight(1f))
-        ResumenTarjeta(titulo = "Cerrados", valor = cerrados, modifier = Modifier.weight(1f))
+        ResumenTarjeta(titulo = stringResource(R.string.total), valor = total, modifier = Modifier.weight(1f))
+        ResumenTarjeta(titulo = stringResource(R.string.open), valor = abiertos, modifier = Modifier.weight(1f))
+        ResumenTarjeta(titulo = stringResource(R.string.under_investigation), valor = enInvestigacion, modifier = Modifier.weight(1f))
+        ResumenTarjeta(titulo = stringResource(R.string.closed), valor = cerrados, modifier = Modifier.weight(1f))
     }
 }
 
