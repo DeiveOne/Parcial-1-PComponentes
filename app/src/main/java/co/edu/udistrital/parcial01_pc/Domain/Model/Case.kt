@@ -1,4 +1,4 @@
-package com.journalist.casemanager.domain.model
+package co.edu.udistrital.parcial01_pc.Domain.Model
 
 data class Case(
     val id: Int = 0,

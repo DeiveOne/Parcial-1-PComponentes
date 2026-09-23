@@ -1,7 +1,7 @@
-package com.journalist.casemanager.domain.repository
+package co.edu.udistrital.parcial01_pc.Domain.RepositoryInterface
 
-import com.journalist.casemanager.domain.model.Case
-import com.journalist.casemanager.domain.model.Interview
+import co.edu.udistrital.parcial01_pc.Domain.Model.Case
+import co.edu.udistrital.parcial01_pc.Domain.Model.Interview
 import kotlinx.coroutines.flow.Flow
 
 interface InterfaceRepository {
